@@ -1,0 +1,17 @@
+<div *ngIf="user">
+  <button mat-raised-button [matMenuTriggerFor]="menu">
+    <mat-icon>verified_user</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+    <span class="details">
+      <span>
+        <span class="margin-right">{{user.FirstName}}</span>
+        <span>{{user.LastName}}</span>
+      </span>
+      <span>{{user.Email}}</span>
+      <span>{{user.CompanyName}}</span>
+    </span>
+    <button mat-menu-item (click)="logout()">Logout</button>
+  </mat-menu>
+</div>
+

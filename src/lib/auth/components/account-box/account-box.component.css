@@ -1,0 +1,9 @@
+.margin-right {
+  margin-right: 1em;
+}
+
+.details {
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,26 @@
+<mat-card>
+
+  <mat-card-title>Login</mat-card-title>
+
+  <mat-card-content>
+
+    <div *ngIf="user">
+      <h4>User</h4>
+      <span>
+        Currently logged in as {{user.FirstName}}
+      </span>
+    </div>
+
+    <div>
+      <h4>Login with: </h4>
+      <a class="push-button"
+         mat-raised-button
+         href="/auth/google"
+      >
+        Login with Google
+      </a>
+    </div>
+
+  </mat-card-content>
+
+</mat-card>
