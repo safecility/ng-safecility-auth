@@ -1,5 +1,5 @@
 {
-  "name": "safecility-app",
+  "name": "safecility-auth",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.1.0",
