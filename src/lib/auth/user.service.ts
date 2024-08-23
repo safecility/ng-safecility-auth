@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {BehaviorSubject, from, map, Observable} from "rxjs";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -9,6 +9,7 @@ import {
   Router,
   RouterStateSnapshot
 } from "@angular/router";
+import {environmentToken} from "safecility-admin-services";
 
 export interface Group {
   GroupUID: string
@@ -44,6 +45,18 @@ export interface User {
   expires?: string | undefined;
 }
 
+interface environment {
+  api?: {
+    auth: string
+  }
+}
+
+const authHeaders = new HttpHeaders(
+  {
+    "Access-Control-Allow-Headers": "Origin, Authorization",
+  }
+)
+
 @Injectable({
   providedIn: 'root'
 })
@@ -54,6 +67,7 @@ export class UserService  implements CanActivate {
   private remote: Observable<User | undefined> | undefined;
 
   constructor(
+    @Inject(environmentToken) private environment: environment,
     private router: Router,
     private httpClient: HttpClient,
   ) {
@@ -101,8 +115,9 @@ export class UserService  implements CanActivate {
   }
 
   private remoteUser(returnUrl?: string): Observable<User | undefined> {
-    const apiUrl = "http://localhost:4000/auth/user"
-    return this.httpClient.get<User | undefined>(apiUrl)
+    let auth = this.environment.api?.auth ? this.environment.api.auth : "http://localhost:4000"
+    const apiUrl = `${auth}/auth/user`
+    return this.httpClient.get<User | undefined>(apiUrl, {headers: authHeaders, withCredentials: true})
   }
 
   //maybe restrict this only to mock - not super bad here but probably unnecessary
