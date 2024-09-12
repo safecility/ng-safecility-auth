@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MatAnchor} from "@angular/material/button";
 import {User, UserService} from "../../user.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -18,13 +17,13 @@ import {NgIf} from "@angular/common";
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  @Input() authPath = "/auth/google"
 
   constructor(
     public userService: UserService,
-    public snackBar: MatSnackBar,
-  ) {
-  }
+  ) {}
 
   user: User | undefined;
 
